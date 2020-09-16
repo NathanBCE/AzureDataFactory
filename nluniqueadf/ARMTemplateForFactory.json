@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'DestinationContainer'"
 		},
+		"LabDatabricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'LabDatabricks'"
+		},
 		"PublicDataset_sasUri": {
 			"type": "secureString",
 			"metadata": "Secure string for 'sasUri' of 'PublicDataset'"
@@ -168,13 +172,46 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "LabNotebook",
+						"type": "DatabricksNotebook",
+						"dependsOn": [
+							{
+								"activity": "Copy_hsb",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"notebookPath": "/Users/nathan.lewis@bne.catholic.edu.au/03-Data-Ingestion-Via-ADF/includes/Databricks-Data-Transformations",
+							"baseParameters": {
+								"accountName": "nluniqueblob",
+								"accountKey": "++jbfmgptpy46YSc9Ur5hwEp3MuHJi8a0G2xgeibOUfX2AA/AmqyRy4O2T0zHKymYyqsnb9+cUbWKYD02UuXJg==",
+								"containerName": "dwtemp"
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LabDatabricks",
+							"type": "LinkedServiceReference"
+						}
 					}
 				],
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_hsb')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_hsb')]"
+				"[concat(variables('factoryId'), '/datasets/DestinationDataset_hsb')]",
+				"[concat(variables('factoryId'), '/linkedServices/LabDatabricks')]"
 			]
 		},
 		{
@@ -538,6 +575,24 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('DestinationContainer_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LabDatabricks')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureDatabricks",
+				"typeProperties": {
+					"domain": "https://adb-1299675868994080.0.azuredatabricks.net",
+					"accessToken": {
+						"type": "SecureString",
+						"value": "[parameters('LabDatabricks_accessToken')]"
+					},
+					"existingClusterId": "0916-231627-pure430"
 				}
 			},
 			"dependsOn": []

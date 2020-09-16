@@ -11,6 +11,9 @@
 		"DestinationContainer_connectionString": {
 			"value": ""
 		},
+		"LabDatabricks_accessToken": {
+			"value": ""
+		},
 		"PublicDataset_sasUri": {
 			"value": ""
 		},
