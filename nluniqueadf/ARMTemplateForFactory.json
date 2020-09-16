@@ -103,6 +103,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "Trigger",
+							"type": "Expression"
+						},
 						"folderPath": {
 							"value": "output",
 							"type": "Expression"
