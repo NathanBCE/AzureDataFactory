@@ -43,7 +43,10 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"folderPath": "output",
+						"folderPath": {
+							"value": "output/books",
+							"type": "Expression"
+						},
 						"container": "adftutorial"
 					},
 					"columnDelimiter": ",",
