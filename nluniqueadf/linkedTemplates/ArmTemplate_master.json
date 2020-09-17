@@ -27,6 +27,17 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'sasUri' of 'PublicDataset'"
 		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"type": "string",
+			"defaultValue": "nluniquesqlserver.database.windows.net"
+		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"type": "secureString"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -68,6 +79,15 @@
 					},
 					"PublicDataset_sasUri": {
 						"value": "[parameters('PublicDataset_sasUri')]"
+					},
+					"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+						"value": "[parameters('ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint')]"
+					},
+					"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+						"value": "[parameters('ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName')]"
+					},
+					"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+						"value": "[parameters('ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword')]"
 					}
 				}
 			},
