@@ -21,6 +21,40 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Action on Stagin Row Count",
+				"type": "IfCondition",
+				"dependsOn": [
+					{
+						"activity": "lookup staging row count",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(activity('Lookup Staging Row Count').output.firstRow.RowCount, 0)",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Execute Pipeline1",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Import_Pipeline",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
 			}
 		],
 		"annotations": []
