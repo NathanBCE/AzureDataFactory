@@ -1,0 +1,27 @@
+{
+	"name": "ADFTutorialIntegrationRuntime",
+	"properties": {
+		"type": "Managed",
+		"typeProperties": {
+			"computeProperties": {
+				"location": "Australia East",
+				"nodeSize": "Standard_D4_v3",
+				"numberOfNodes": 1,
+				"maxParallelExecutionsPerNode": 4
+			},
+			"ssisProperties": {
+				"catalogInfo": {
+					"catalogServerEndpoint": "nluniquesqlserver.database.windows.net",
+					"catalogAdminUserName": "sqladmin",
+					"catalogAdminPassword": {
+						"type": "SecureString",
+						"value": "**********"
+					},
+					"catalogPricingTier": "Basic"
+				},
+				"edition": "Standard",
+				"licenseType": "LicenseIncluded"
+			}
+		}
+	}
+}
