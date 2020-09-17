@@ -39,6 +39,48 @@
 						"value": "@equals(activity('Lookup Staging Row Count').output.firstRow.RowCount, 0)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Execute Pipeline2",
+							"type": "ExecutePipeline",
+							"dependsOn": [
+								{
+									"activity": "Stored procedure1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "Import_Pipeline",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						},
+						{
+							"name": "Stored procedure1",
+							"type": "SqlServerStoredProcedure",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"storedProcedureName": "[SalesLT].[usp_TruncateProductStaging]"
+							},
+							"linkedServiceName": {
+								"referenceName": "AzureSqlDatabase1",
+								"type": "LinkedServiceReference"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Execute Pipeline1",
