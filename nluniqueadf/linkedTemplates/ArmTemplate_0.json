@@ -1081,13 +1081,109 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "Validate Import Rows",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "Import CSV",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[SalesLT].[usp_CheckProductStaging]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabase1",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "SendFailureNotification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Failed"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-08.australiaeast.logic.azure.com:443/workflows/c330828ddd8f4f2fb853860300dff844/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=bocB-XniegrfK34iL5i402YfeOyddGxXwyOOsoiGF8M",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "@{activity('Validate Import Rows').error.message}",
+								"EmailTo": "@pipeline().parameters.EmailTo"
+							}
+						}
+					},
+					{
+						"name": "SendSuccessNotification",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "Validate Import Rows",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-07.australiaeast.logic.azure.com:443/workflows/d7639299900b405bb382b4018a425d83/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cc7elnrlUQJbCzhhDJspLkGjh_jjZt9AyjLPN9DNjuI",
+							"method": "POST",
+							"headers": {},
+							"body": {
+								"DataFactoryName": "@{pipeline().DataFactory}",
+								"PipelineName": "@{pipeline().Pipeline}",
+								"ErrorMessage": "",
+								"EmailTo": "@pipeline().parameters.EmailTo"
+							}
+						}
 					}
 				],
+				"parameters": {
+					"EmailTo": {
+						"type": "string",
+						"defaultValue": "nathan.lewis@bne.catholic.edu.au"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ProductsCSV')]",
-				"[concat(variables('factoryId'), '/datasets/ProductStaging')]"
+				"[concat(variables('factoryId'), '/datasets/ProductStaging')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
 			]
 		}
 	]

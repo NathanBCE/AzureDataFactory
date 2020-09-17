@@ -6,26 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "nluniqueadf"
-		},
-		"AzureBlobStorage1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
-		},
-		"AzureSqlDatabase1_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
-		},
-		"DestinationContainer_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'DestinationContainer'"
-		},
-		"LabDatabricks_accessToken": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'LabDatabricks'"
-		},
-		"PublicDataset_sasUri": {
-			"type": "secureString",
-			"metadata": "Secure string for 'sasUri' of 'PublicDataset'"
 		}
 	},
 	"variables": {
@@ -89,15 +69,13 @@
 						"inputs": [
 							{
 								"referenceName": "SourceDataset_sc6",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "DestinationDataset_sc6",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
@@ -165,15 +143,13 @@
 						"inputs": [
 							{
 								"referenceName": "SourceDataset_hsb",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "DestinationDataset_hsb",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -271,15 +247,13 @@
 						"inputs": [
 							{
 								"referenceName": "emp",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "Outputdataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
@@ -530,15 +504,13 @@
 						"inputs": [
 							{
 								"referenceName": "ProductsCSV",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ProductStaging",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					},
@@ -591,7 +563,6 @@
 						"typeProperties": {
 							"url": "https://prod-08.australiaeast.logic.azure.com:443/workflows/c330828ddd8f4f2fb853860300dff844/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=bocB-XniegrfK34iL5i402YfeOyddGxXwyOOsoiGF8M",
 							"method": "POST",
-							"headers": {},
 							"body": {
 								"DataFactoryName": "@{pipeline().DataFactory}",
 								"PipelineName": "@{pipeline().Pipeline}",
@@ -622,7 +593,6 @@
 						"typeProperties": {
 							"url": "https://prod-07.australiaeast.logic.azure.com:443/workflows/d7639299900b405bb382b4018a425d83/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cc7elnrlUQJbCzhhDJspLkGjh_jjZt9AyjLPN9DNjuI",
 							"method": "POST",
-							"headers": {},
 							"body": {
 								"DataFactoryName": "@{pipeline().DataFactory}",
 								"PipelineName": "@{pipeline().Pipeline}",
@@ -642,8 +612,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ProductsCSV')]",
-				"[concat(variables('factoryId'), '/datasets/ProductStaging')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
+				"[concat(variables('factoryId'), '/datasets/ProductStaging')]"
 			]
 		},
 		{
@@ -665,9 +634,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/DestinationContainer')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DestinationDataset_sc6')]",
@@ -695,9 +662,7 @@
 				},
 				"schema": []
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/Outputdataset')]",
@@ -736,9 +701,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ProductStaging')]",
@@ -842,9 +805,7 @@
 					"table": "ProductStaging"
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabase1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/ProductsCSV')]",
@@ -940,9 +901,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SourceDataset_hsb')]",
@@ -963,9 +922,7 @@
 					}
 				}
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/PublicDataset')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/SourceDataset_sc6')]",
@@ -1077,9 +1034,7 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
+			"dependsOn": []
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/emp')]",
@@ -1112,47 +1067,6 @@
 					}
 				]
 			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/DestinationContainer')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('DestinationContainer_connectionString')]"
-				}
-			},
 			"dependsOn": []
 		},
 		{
@@ -1166,22 +1080,9 @@
 					"domain": "https://adb-1299675868994080.0.azuredatabricks.net",
 					"accessToken": {
 						"type": "SecureString",
-						"value": "[parameters('LabDatabricks_accessToken')]"
+						"value": "**********"
 					},
 					"existingClusterId": "0916-231627-pure430"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PublicDataset')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"sasUri": "[parameters('PublicDataset_sasUri')]"
 				}
 			},
 			"dependsOn": []
