@@ -7,7 +7,7 @@
 				"type": "IfCondition",
 				"dependsOn": [
 					{
-						"activity": "Lookup1",
+						"activity": "Lookup Staging Row Count",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -79,7 +79,7 @@
 				}
 			},
 			{
-				"name": "Lookup1",
+				"name": "Lookup Staging Row Count",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -93,6 +93,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
+						"sqlReaderStoredProcedureName": "[SalesLT].[usp_GetRowCountProductStaging]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
