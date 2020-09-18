@@ -32,6 +32,9 @@
 		"AzureKeyVault1_properties_typeProperties_baseUrl": {
 			"value": "https://ADFKeyVaultNL.vault.azure.net/"
 		},
+		"AzureSqlDatabase2_properties_typeProperties_connectionString_secretName": {
+			"value": "TutorialAdfSecret"
+		},
 		"containerUri": {
 			"value": ""
 		},
