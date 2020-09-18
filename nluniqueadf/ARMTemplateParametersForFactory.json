@@ -28,6 +28,9 @@
 		},
 		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
 			"value": ""
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://ADFKeyVaultNL.vault.azure.net/"
 		}
 	}
 }

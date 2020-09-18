@@ -13,6 +13,86 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/Svens')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Svens_History.csv",
+						"folderPath": "originals",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "Private_Notes",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Trixies')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -827,7 +907,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Trixies')]"
+				"[concat(variables('factoryId'), '/datasets/Trixies')]",
+				"[concat(variables('factoryId'), '/datasets/Svens')]"
 			]
 		},
 		{
