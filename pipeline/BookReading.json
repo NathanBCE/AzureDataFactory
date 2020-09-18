@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "BookReading",
+				"name": "BookReadingDataFlow",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
