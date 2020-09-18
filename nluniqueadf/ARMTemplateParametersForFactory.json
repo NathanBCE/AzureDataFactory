@@ -4,6 +4,30 @@
 	"parameters": {
 		"factoryName": {
 			"value": "nluniqueadf"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureSqlDatabase1_connectionString": {
+			"value": ""
+		},
+		"DestinationContainer_connectionString": {
+			"value": ""
+		},
+		"LabDatabricks_accessToken": {
+			"value": ""
+		},
+		"PublicDataset_sasUri": {
+			"value": ""
+		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogServerEndpoint": {
+			"value": "nluniquesqlserver.database.windows.net"
+		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminUserName": {
+			"value": "sqladmin"
+		},
+		"ADFTutorialIntegrationRuntime_properties_typeProperties_ssisProperties_catalogInfo_catalogAdminPassword": {
+			"value": ""
 		}
 	}
 }
