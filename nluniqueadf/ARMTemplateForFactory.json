@@ -956,138 +956,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Keikos')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Keikos_History.csv",
-						"folderPath": "originals",
-						"container": "lab5"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Minervas')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Minervas_History.csv",
-						"folderPath": "originals",
-						"container": "lab5"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Outputdataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1470,75 +1338,6 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Svens')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorage1",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "Svens_History.csv",
-						"folderPath": "originals",
-						"container": "lab5"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": [
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					},
-					{
-						"type": "String"
-					}
-				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Trixies')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -1756,19 +1555,499 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"name": "[concat(parameters('factoryName'), '/BookReading')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"type": "MappingDataFlow",
 				"typeProperties": {
-					"sources": [],
-					"sinks": [],
-					"transformations": [],
-					"script": ""
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Books",
+								"type": "DatasetReference"
+							},
+							"name": "Books"
+						},
+						{
+							"dataset": {
+								"referenceName": "Trixies",
+								"type": "DatasetReference"
+							},
+							"name": "Trixies"
+						},
+						{
+							"dataset": {
+								"referenceName": "Keikos",
+								"type": "DatasetReference"
+							},
+							"name": "Keikos"
+						},
+						{
+							"dataset": {
+								"referenceName": "Minervas",
+								"type": "DatasetReference"
+							},
+							"name": "Minervas"
+						},
+						{
+							"dataset": {
+								"referenceName": "Svens",
+								"type": "DatasetReference"
+							},
+							"name": "Svens"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "ReaderBooksInnerJoin",
+								"type": "DatasetReference"
+							},
+							"name": "sink1"
+						},
+						{
+							"dataset": {
+								"referenceName": "OuterJoin",
+								"type": "DatasetReference"
+							},
+							"name": "ReaderBooksOuterJoin1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "AddReaderNameT"
+						},
+						{
+							"name": "AddReaderNameK"
+						},
+						{
+							"name": "AddReaderNameM"
+						},
+						{
+							"name": "AddReaderNameS"
+						},
+						{
+							"name": "AllReaders"
+						},
+						{
+							"name": "SortReadingHistory"
+						},
+						{
+							"name": "JoinReadersToBooks"
+						},
+						{
+							"name": "RemoveDuplicateColumns"
+						},
+						{
+							"name": "ReaderBooksOuterJoin"
+						},
+						{
+							"name": "RemoveDuplicateColumns2"
+						}
+					],
+					"script": "source(output(\n\t\tBook_Id as integer '##0',\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tTitle as string,\n\t\tAuthor as string,\n\t\t{Author_l-f} as string,\n\t\tAdditional_Authors as string,\n\t\tAverage_Rating as string,\n\t\tPublisher as string,\n\t\tBinding as string,\n\t\tNumber_of_Pages as integer '##0',\n\t\tYear_Published as integer '##0',\n\t\tOriginal_Publication_Year as integer '##0'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Books\nsource(output(\n\t\tBook_Id as integer '##0',\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tMy_Rating as integer '##0',\n\t\tDate_Read as date 'dd/MM/yyyy',\n\t\tDate_Added as date 'dd/MM/yyyy',\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tMy_Review as string,\n\t\tSpoiler as boolean,\n\t\tPrivate_Notes as string,\n\t\tRead_Count as integer '##0',\n\t\tOriginal_Purchase_Date as date 'dd/MM/yyyy'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Trixies\nsource(output(\n\t\tBook_Id as integer '##0',\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tMy_Rating as integer '##0',\n\t\tDate_Read as date 'dd/MM/yyyy',\n\t\tDate_Added as date 'dd/MM/yyyy',\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tMy_Review as string,\n\t\tSpoiler as boolean,\n\t\tRead_Count as integer '##0',\n\t\tOriginal_Purchase_Date as date 'dd/MM/yyyy'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Keikos\nsource(output(\n\t\tBook_Id as integer '##0',\n\t\tISBN as string,\n\t\tMy_Rating as integer '##0',\n\t\tDate_Read as date 'dd/MM/yyyy',\n\t\tDate_Added as date 'dd/MM/yyyy',\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tMy_Review as string,\n\t\tSpoiler as boolean,\n\t\tPrivate_Notes as string,\n\t\tRead_Count as integer '##0',\n\t\tOriginal_Purchase_Date as date 'dd/MM/yyyy'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Minervas\nsource(output(\n\t\tBook_Id as integer '##0',\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tMy_Rating as integer '##0',\n\t\tDate_Read as date 'dd/MM/yyyy',\n\t\tDate_Added as date 'dd/MM/yyyy',\n\t\tOriginal_Purchase_Date as date 'dd/MM/yyyy',\n\t\tSpoiler as boolean,\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tPrivate_Notes as string,\n\t\tRead_Count as integer '##0',\n\t\tMy_Review as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> Svens\nTrixies derive(Reader = \"Trixie Belden\") ~> AddReaderNameT\nKeikos derive(Reader = \"Keiko Brooks\") ~> AddReaderNameK\nMinervas derive(Reader = \"Minerva Snape\") ~> AddReaderNameM\nSvens derive(Reader = \"Sven Dorjadt\") ~> AddReaderNameS\nAddReaderNameT, AddReaderNameK, AddReaderNameM, AddReaderNameS union(byName: true)~> AllReaders\nAllReaders sort(asc(Book_Id, true)) ~> SortReadingHistory\nSortReadingHistory, Books join(AllReaders@Book_Id == Books@Book_Id\n\t&& AllReaders@ISBN == Books@ISBN,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> JoinReadersToBooks\nJoinReadersToBooks select(mapColumn(\n\t\tMy_Rating,\n\t\tDate_Read,\n\t\tDate_Added,\n\t\tBookshelves,\n\t\tExclusive_Shelf,\n\t\tMy_Review,\n\t\tSpoiler,\n\t\tPrivate_Notes,\n\t\tRead_Count,\n\t\tOriginal_Purchase_Date,\n\t\tReader,\n\t\tBook_Id = Books@Book_Id,\n\t\tISBN = Books@ISBN,\n\t\tISBN13 = Books@ISBN13,\n\t\tTitle,\n\t\tAuthor,\n\t\t{Author_l-f},\n\t\tAdditional_Authors,\n\t\tAverage_Rating,\n\t\tPublisher,\n\t\tBinding,\n\t\tNumber_of_Pages,\n\t\tYear_Published,\n\t\tOriginal_Publication_Year\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RemoveDuplicateColumns\nBooks, SortReadingHistory join(Books@Book_Id == AllReaders@Book_Id\n\t&& Books@ISBN == AllReaders@ISBN,\n\tjoinType:'right',\n\tbroadcast: 'auto')~> ReaderBooksOuterJoin\nReaderBooksOuterJoin select(mapColumn(\n\t\tBook_Id = Books@Book_Id,\n\t\tISBN = Books@ISBN,\n\t\tISBN13 = Books@ISBN13,\n\t\tTitle,\n\t\tAuthor,\n\t\t{Author_l-f},\n\t\tAdditional_Authors,\n\t\tAverage_Rating,\n\t\tPublisher,\n\t\tNumber_of_Pages,\n\t\tYear_Published,\n\t\tBinding,\n\t\tOriginal_Publication_Year,\n\t\tMy_Rating,\n\t\tDate_Read,\n\t\tDate_Added,\n\t\tBookshelves,\n\t\tExclusive_Shelf,\n\t\tMy_Review,\n\t\tSpoiler,\n\t\tPrivate_Notes,\n\t\tRead_Count,\n\t\tOriginal_Purchase_Date,\n\t\tReader\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RemoveDuplicateColumns2\nRemoveDuplicateColumns sink(input(\n\t\tBook_Id as string,\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tMy_Rating as string,\n\t\tDate_Read as string,\n\t\tDate_Added as string,\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tMy_Review as string,\n\t\tSpoiler as string,\n\t\tRead_Count as string,\n\t\tOriginal_Purchase_Date as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['InnerJoinDataSet'],\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1\nRemoveDuplicateColumns2 sink(input(\n\t\tBook_Id as string,\n\t\tISBN as string,\n\t\tISBN13 as string,\n\t\tMy_Rating as string,\n\t\tDate_Read as string,\n\t\tDate_Added as string,\n\t\tBookshelves as string,\n\t\tExclusive_Shelf as string,\n\t\tMy_Review as string,\n\t\tSpoiler as string,\n\t\tRead_Count as string,\n\t\tOriginal_Purchase_Date as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> ReaderBooksOuterJoin1"
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Books')]",
+				"[concat(variables('factoryId'), '/datasets/Trixies')]",
+				"[concat(variables('factoryId'), '/datasets/Keikos')]",
+				"[concat(variables('factoryId'), '/datasets/Minervas')]",
+				"[concat(variables('factoryId'), '/datasets/Svens')]",
+				"[concat(variables('factoryId'), '/datasets/ReaderBooksInnerJoin')]",
+				"[concat(variables('factoryId'), '/datasets/OuterJoin')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Keikos')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Keikos_History.csv",
+						"folderPath": "originals",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Minervas')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Minervas_History.csv",
+						"folderPath": "originals",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Private_Notes",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Svens')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "Svens_History.csv",
+						"folderPath": "originals",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "Private_Notes",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ReaderBooksInnerJoin')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OuterJoin')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "lab5"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Book_Id",
+						"type": "String"
+					},
+					{
+						"name": "ISBN",
+						"type": "String"
+					},
+					{
+						"name": "ISBN13",
+						"type": "String"
+					},
+					{
+						"name": "My_Rating",
+						"type": "String"
+					},
+					{
+						"name": "Date_Read",
+						"type": "String"
+					},
+					{
+						"name": "Date_Added",
+						"type": "String"
+					},
+					{
+						"name": "Bookshelves",
+						"type": "String"
+					},
+					{
+						"name": "Exclusive_Shelf",
+						"type": "String"
+					},
+					{
+						"name": "My_Review",
+						"type": "String"
+					},
+					{
+						"name": "Spoiler",
+						"type": "String"
+					},
+					{
+						"name": "Read_Count",
+						"type": "String"
+					},
+					{
+						"name": "Original_Purchase_Date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
 		}
 	]
 }
